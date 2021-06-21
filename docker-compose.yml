@@ -1,5 +1,15 @@
 version: "3"
 services:
+    mice:
+        build: backend/mouse
+        restart: always
+        depends_on:
+            - db
+    friends:
+        build: backend/friends
+        restart: always
+        depends_on:
+            - db
     monitor:
         build: backend/monitor
         restart: always
