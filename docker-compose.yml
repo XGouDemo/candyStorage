@@ -1,17 +1,17 @@
 version: "3"
 services:
     mice:
-        build: backend/mouse
+        build: src/backend/mouse
         restart: always
         depends_on:
             - db
     friends:
-        build: backend/friends
+        build: src/backend/friends
         restart: always
         depends_on:
             - db
     monitor:
-        build: backend/monitor
+        build: src/backend/monitor
         restart: always
         depends_on:
             - db
@@ -30,4 +30,3 @@ services:
             test: "/usr/bin/mysql --user=root --password=init1234 --execute \"SHOW DATABASES;\""
             timeout: 20s
             retries: 10
-
