@@ -66,8 +66,6 @@ func reportCandyStorage() {
 		log.Fatal(err)
 	}
 
-	defer res.Close()
-
 	for res.Next() {
 		var candy Candy
 		err = res.Scan(&candy.candyId, &candy.name, &candy.pieces)
@@ -85,8 +83,6 @@ func reportCandyStorage() {
 		log.Fatal(err)
 	}
 
-	defer res.Close()
-
 	for res.Next() {
 		var candy Candy
 		err = res.Scan(&candy.candyId, &candy.name, &candy.pieces)
@@ -98,7 +94,6 @@ func reportCandyStorage() {
 		fmt.Printf("---The least abundant candy " + candy.name + " has " + strconv.Itoa(candy.pieces) + " pieces.\n")
 	}
 	fmt.Printf("------------------------------------------------------\n")
-	res.Close()
 }
 
 func manyLineBreaks() {

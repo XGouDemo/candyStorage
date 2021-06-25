@@ -69,8 +69,6 @@ func steal() {
 	commitError := tx.Commit()
 	ErrorCheck(commitError)
 	fmt.Println("XXXXXX-----a mouse has stolen " + strconv.Itoa(candy.pieces-newQuantity) + " pieces of " + candy.name + ".------XXXXXX")
-	db.Close()
-
 }
 
 func ErrorCheck(err error) {

@@ -47,8 +47,6 @@ func bring() {
 	ErrorCheck(e)
 	commitError := tx.Commit()
 	ErrorCheck(commitError)
-	db.Close()
-
 }
 
 func randInt(mini int, maxi int) int {
