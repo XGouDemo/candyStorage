@@ -10,7 +10,6 @@ import (
 )
 
 func main() {
-	time.Sleep(10 * time.Second)
 	fmt.Println("A friend is bringing candies.")
 	bringCandy()
 }

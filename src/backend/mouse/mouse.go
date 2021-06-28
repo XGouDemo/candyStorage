@@ -12,6 +12,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+var stealingPower float32 = 100
+
 func main() {
 	fmt.Println("A mouse is stealing candies.")
 	foreverwaiting()
@@ -58,7 +60,7 @@ func steal() {
 	ErrorCheck(err)
 	tx, er := db.Begin()
 	ErrorCheck(er)
-	var newQuantity int = candy.pieces * 7 / 10
+	var newQuantity int = candy.pieces * 7 / 10 * stealingPower / 100
 	_, e := tx.Stmt(updateCandy).Exec(newQuantity, candy.candyId)
 	ErrorCheck(e)
 	commitError := tx.Commit()
@@ -76,4 +78,9 @@ func randInt(mini int, maxi int) int {
 	rand.Seed(time.Now().UnixNano())
 
 	return rand.Intn(maxi-mini+1) + mini
+}
+
+func setStealingPower(newPower float32) {
+	stealingPower = newPower
+	fmt.Println("new stealing power: %f%", (stealingPower)/100)
 }

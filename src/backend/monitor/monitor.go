@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+	time.Sleep(10 * time.Second)
 	fmt.Println("monitor reporting...")
 	foreverwaiting()
 }
