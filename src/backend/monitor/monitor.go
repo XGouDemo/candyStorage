@@ -22,9 +22,7 @@ func main() {
 }
 
 func foreverwaiting() {
-	sum := 0
 	for {
-		sum++ // repeated forever
 		time.Sleep(3 * time.Second)
 		reportCandyStorage()
 	}
