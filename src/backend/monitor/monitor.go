@@ -1,6 +1,7 @@
 package main
 
 import (
+	candy "candyStorage/src/backend/candy"
 	"database/sql"
 	"fmt"
 	"log"
@@ -9,12 +10,6 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 )
-
-type Candy struct {
-	candyId int
-	name    string
-	pieces  int
-}
 
 func main() {
 	fmt.Println("monitor reporting...")
@@ -47,7 +42,7 @@ func reportCandyStorage() {
 	defer res.Close()
 	fmt.Printf("----------------------Candy Storage----------------------\n")
 	for res.Next() {
-		var candy Candy
+		var candy candy.Candy
 		err := res.Scan(&candy.pieces)
 
 		if err != nil {
@@ -65,7 +60,7 @@ func reportCandyStorage() {
 	}
 
 	for res.Next() {
-		var candy Candy
+		var candy candy.Candy
 		err = res.Scan(&candy.candyId, &candy.name, &candy.pieces)
 
 		if err != nil {
@@ -82,7 +77,7 @@ func reportCandyStorage() {
 	}
 
 	for res.Next() {
-		var candy Candy
+		var candy candy.Candy
 		err = res.Scan(&candy.candyId, &candy.name, &candy.pieces)
 
 		if err != nil {

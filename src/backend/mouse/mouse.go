@@ -1,6 +1,7 @@
 package main
 
 import (
+	candy "candyStorage/src/backend/candy"
 	"database/sql"
 	"fmt"
 	"log"
@@ -10,12 +11,6 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 )
-
-type Candy struct {
-	candyId int
-	name    string
-	pieces  int
-}
 
 func main() {
 	fmt.Println("A mouse is stealing candies.")
@@ -30,7 +25,7 @@ func foreverwaiting() {
 }
 
 func steal() {
-	var candy Candy
+	var candy candy.Candy
 	db, err := sql.Open("mysql", "gocli:init1234@tcp(db:3306)/candy")
 	if err != nil {
 		fmt.Println("panic...")

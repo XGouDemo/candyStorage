@@ -9,12 +9,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type Candy struct {
-	candyId int
-	name    string
-	pieces  int
-}
-
 func main() {
 	time.Sleep(10 * time.Second)
 	fmt.Println("A friend is bringing candies.")
