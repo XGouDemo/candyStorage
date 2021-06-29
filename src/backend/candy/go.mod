@@ -1,3 +1,3 @@
-module github.com/XGouDemo/candyStorage/blob/main/src/backend/candy
+module candy
 
 go 1.16
