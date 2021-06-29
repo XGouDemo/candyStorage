@@ -1,25 +1,47 @@
 package main
 
 import (
-	candy "candyStorage/src/backend/candy"
 	"database/sql"
 	"fmt"
 	"log"
+	"net/http"
 	"strconv"
 	"time"
+
+	candy "github.com/XGouDemo/candyStorage/src/backend/candy"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
 	time.Sleep(10 * time.Second)
-	fmt.Println("monitor reporting...")
+	go handleRequest()
 	foreverwaiting()
+}
+
+// myHandler implements ServeHTTP, so it is valid
+type myHandler struct{}
+
+func (m *myHandler) ServeHTTP(w http.ResponseWriter, _ *http.Request) {
+	fmt.Fprintf(w, "serving via mux-Handle")
+	fmt.Println("Monitor Got Request")
+}
+func handleRequest() {
+
+	// handler
+	h := new(myHandler)
+
+	// create mux and register handler
+	mux := http.NewServeMux()
+	mux.Handle("/", h)
+
+	// register mux with server and listen for requests
+	log.Fatal(http.ListenAndServe(":8080", mux))
 }
 
 func foreverwaiting() {
 	for {
-		time.Sleep(3 * time.Second)
+		time.Sleep(5 * time.Second)
 		reportCandyStorage()
 	}
 }
@@ -41,16 +63,16 @@ func reportCandyStorage() {
 	}
 
 	defer res.Close()
-	fmt.Printf("----------------------Candy Storage----------------------\n")
+	fmt.Printf("----------------------Candy Storage--111------------------\n")
 	for res.Next() {
 		var candy candy.Candy
-		err := res.Scan(&candy.pieces)
+		err := res.Scan(&candy.Pieces)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		fmt.Printf("---Total candy pieces: %v\n", candy.pieces)
+		fmt.Printf("---Total candy pieces: %v\n", candy.Pieces)
 	}
 
 	//report on the most abundant candy
@@ -62,13 +84,13 @@ func reportCandyStorage() {
 
 	for res.Next() {
 		var candy candy.Candy
-		err = res.Scan(&candy.candyId, &candy.name, &candy.pieces)
+		err = res.Scan(&candy.CandyId, &candy.Name, &candy.Pieces)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		fmt.Printf("---The most abundant candy " + candy.name + " has " + strconv.Itoa(candy.pieces) + " pieces.\n")
+		fmt.Printf("---The most abundant candy " + candy.Name + " has " + strconv.Itoa(candy.Pieces) + " Pieces.\n")
 	}
 	//report on the least abundant candy
 	res, err = db.Query("SELECT * FROM candy ORDER BY pieces ASC LIMIT 1")
@@ -79,13 +101,13 @@ func reportCandyStorage() {
 
 	for res.Next() {
 		var candy candy.Candy
-		err = res.Scan(&candy.candyId, &candy.name, &candy.pieces)
+		err = res.Scan(&candy.CandyId, &candy.Name, &candy.Pieces)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		fmt.Printf("---The least abundant candy " + candy.name + " has " + strconv.Itoa(candy.pieces) + " pieces.\n")
+		fmt.Printf("---The least abundant candy " + candy.Name + " has " + strconv.Itoa(candy.Pieces) + " pieces.\n")
 	}
 	fmt.Printf("------------------------------------------------------\n")
 }

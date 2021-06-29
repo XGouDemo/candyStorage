@@ -1,2 +1,4 @@
+github.com/XGouDemo/candyStorage/src/backend/candy v0.0.0-20210629123244-02b46b4de9e6 h1:KQ/g6hTovgZ1I0N5lFNz9eHM6sMpnoCyCe4iusbWis0=
+github.com/XGouDemo/candyStorage/src/backend/candy v0.0.0-20210629123244-02b46b4de9e6/go.mod h1:Zte+ZV9zWq7/g3FheGAq1XfNTR2LE/vAMJF/ipiFHG0=
 github.com/go-sql-driver/mysql v1.6.0 h1:BCTh4TKNUYmOmMUcQ3IipzF5prigylS7XXjEkfCHuOE=
 github.com/go-sql-driver/mysql v1.6.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=

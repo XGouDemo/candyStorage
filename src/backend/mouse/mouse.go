@@ -1,7 +1,8 @@
 package main
 
 import (
-	candy "candyStorage/src/backend/candy"
+	candy "github.com/XGouDemo/candyStorage/src/backend/candy"
+
 	"database/sql"
 	"fmt"
 	"log"
@@ -47,7 +48,7 @@ func steal() {
 
 	for res.Next() {
 
-		err = res.Scan(&candy.candyId, &candy.name, &candy.pieces)
+		err = res.Scan(&candy.CandyId, &candy.Name, &candy.Pieces)
 
 		if err != nil {
 			log.Fatal(err)
@@ -56,16 +57,16 @@ func steal() {
 
 	//Update db
 
-	updateCandy, err := db.Prepare("UPDATE candy SET pieces=? WHERE candyId=?")
+	updateCandy, err := db.Prepare("UPDATE candy SET pieces=? WHERE CandyId=?")
 	ErrorCheck(err)
 	tx, er := db.Begin()
 	ErrorCheck(er)
-	var newQuantity int = candy.pieces * 7 / 10 * stealingPower / 100
-	_, e := tx.Stmt(updateCandy).Exec(newQuantity, candy.candyId)
+	var newQuantity int = candy.Pieces * 7 / 10 * int(stealingPower) / 100
+	_, e := tx.Stmt(updateCandy).Exec(newQuantity, candy.CandyId)
 	ErrorCheck(e)
 	commitError := tx.Commit()
 	ErrorCheck(commitError)
-	fmt.Println("XXXXXX-----a mouse has stolen " + strconv.Itoa(candy.pieces-newQuantity) + " pieces of " + candy.name + ".------XXXXXX")
+	fmt.Println("XXXXXX-----a mouse has stolen " + strconv.Itoa(candy.Pieces-newQuantity) + " pieces of " + candy.Name + ".------XXXXXX")
 }
 
 func ErrorCheck(err error) {
